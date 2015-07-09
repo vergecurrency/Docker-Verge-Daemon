@@ -11,3 +11,7 @@ https://github.com/bitspill/dogedsource
 
 
 Place DogeCoinDark.conf in /coins/doged/.DogeCoinDark/DogeCoinDark.conf on the HOST system.
+
+
+##This Docker image uses libdb5.x
+##It is incompatable with wallet.dat's created with libdb4.8!
