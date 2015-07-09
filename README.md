@@ -2,10 +2,12 @@
 https://github.com/bitspill/dogedsource
 
 
-Build image
+
+#Build image  
     docker build -t bitspill/doged github.com/bitspill/Docker-DogecoinDark-Daemon
 
-Run image
+#Run image 
     docker run -d --name dogeddaemon -v /coins/doged:/coin/home bitspill/doged
+
 
 Place DogeCoinDark.conf in /coins/doged/.DogeCoinDark/DogeCoinDark.conf
