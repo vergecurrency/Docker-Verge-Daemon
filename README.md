@@ -10,4 +10,4 @@ https://github.com/bitspill/dogedsource
     docker run -d --name dogeddaemon -v /coins/doged:/coin/home bitspill/doged
 
 
-Place DogeCoinDark.conf in /coins/doged/.DogeCoinDark/DogeCoinDark.conf
+Place DogeCoinDark.conf in /coins/doged/.DogeCoinDark/DogeCoinDark.conf on the HOST system.
