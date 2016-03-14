@@ -1,5 +1,5 @@
-# Dockerfile for DogeCoinDark
-# http://www.dogecoindark.net/
+# Dockerfile for Verge
+# http://vergecurrency.com/
 # https://bitcointalk.org/index.php?topic=1053864.0
 # https://github.com/doged/dogedsource
 
@@ -15,13 +15,13 @@ RUN apt-get update && apt-get install -y \
     libdb++-dev \
     libssl-dev
 
-RUN git clone https://github.com/bitspill/dogedsource.git /coin/git
+RUN git clone https://github.com/vergecurrency/verge /coin/git
 
 WORKDIR /coin/git/src
 
 RUN make -f makefile.unix USE_UPNP=
 
-RUN mv dogecoindarkd /coin/dogedaemon && rm -rf /coin/git
+RUN mv verged /coin/verged && rm -rf /coin/git
 
 WORKDIR /coin
 VOLUME ["/coin/home"]
