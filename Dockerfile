@@ -1,7 +1,7 @@
 # Dockerfile for Verge
 # http://vergecurrency.com/
-# https://bitcointalk.org/index.php?topic=1053864.0
-# https://github.com/doged/dogedsource
+# https://bitcointalk.org/index.php?topic=1365894
+# https://github.com/vergecurrency/verge
 
 FROM ubuntu:latest
 
