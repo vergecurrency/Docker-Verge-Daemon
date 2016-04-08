@@ -15,9 +15,6 @@ https://github.com/vergecurrency/verge (official coin source code repo)
 Place VERGE.conf in /coins/verge/.VERGE/VERGE.conf on the HOST system.
 
 
-##This Docker image uses libdb5.x
-##It is incompatable with wallet.dat's created with libdb4.8!
-
 Live Chat
 ---------
 
