@@ -29,6 +29,10 @@ RUN sudo add-apt-repository ppa:bitcoin/bitcoin && apt-get update && sudo apt-ge
     qttools5-dev-tools \
     libprotobuf-dev \
     protobuf-compiler \
+    zlib1g-dev \
+    libseccomp-dev \
+    libcap-dev \
+    libncap-dev \
     libqrencode-dev \
     libssl-dev
 
@@ -45,7 +49,7 @@ VOLUME ["/coin/home"]
 
 ENV HOME /coin/home
 
-ENTRYPOINT ["/coin/VERGEdaemon"]
+ENTRYPOINT ["/coin/vergedaemon"]
 #CMD ["/coin/dogedaemon"]
 
 # P2P, RPC
