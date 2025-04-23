@@ -1,34 +1,60 @@
 on:
-  push
+  push:
+
 jobs:
-   ubuntu24:
+  ubuntu24:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Update apt repos
         run: sudo apt-get update
 
       - name: Install base dependencies
-        run: sudo apt-get install build-essential xutils-dev libtool gperf autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib binutils-gold bison byacc python3
+        run: |
+          sudo apt-get install -y build-essential xutils-dev libtool gperf autotools-dev automake \
+            pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib \
+            binutils-gold python3
 
-      - name: Build depends
-        run: cd depends/ && make -j4 HOST=x86_64-linux-gnu
+      - name: Build Docker image
+        run: docker build -t verge-daemon .
 
+      - name: Run Verge daemon container
+        run: |
+          docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon
+          sleep 10  # Wait for daemon to start
+          docker logs vergedaemon
+
+      - name: Verify Verge daemon is running
+        run: docker ps -a | grep vergedaemon
 
 
   ubuntu22:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Update apt repos
         run: sudo apt-get update
 
       - name: Install base dependencies
-        run: sudo apt-get install build-essential xutils-dev libtool gperf autotools-dev automake pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib binutils-gold bison byacc python3
+        run: |
+          sudo apt-get install -y build-essential xutils-dev libtool gperf autotools-dev automake \
+            pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib \
+            binutils-gold python3
 
-      - name: Build depends
-        run: cd depends/ && make -j4 HOST=x86_64-linux-gnu
+      - name: Build Docker image
+        run: docker build -t verge-daemon .
+
+      - name: Run Verge daemon container
+        run: |
+          docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon
+          sleep 10  # Wait for daemon to start
+          docker logs vergedaemon
+
+      - name: Verify Verge daemon is running
+        run: docker ps -a | grep vergedaemon
