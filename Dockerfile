@@ -1,17 +1,27 @@
-# Dockerfile for Verge
-# http://vergecurrency.com/
-# https://bitcointalk.org/index.php?topic=1365894
+# Dockerfile for Verge Daemon
+# https://vergecurrency.com/
 # https://github.com/vergecurrency/verge
 
-FROM ubuntu:latest
+FROM ubuntu:22.04
 
-MAINTAINER Jeremiah Buddenhagen <bitspill@bitspill.net>
+LABEL maintainer="Jeremiah Buddenhagen <bitspill@bitspill.net>"
 
-RUN add-apt-repository ppa:bitcoin/bitcoin && apt-get update && sudo apt-get install libdb4.8-dev libdb4.8++-dev && apt-get install -y \
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Set base working directory
+WORKDIR /coin
+
+# Install dependencies
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:bitcoin/bitcoin && \
+    apt-get update && \
+    apt-get install -y \
     build-essential \
     git \
     libboost-all-dev \
-    libdb-dev \
+    libdb4.8-dev \
+    libdb4.8++-dev \
     libtool \
     autotools-dev \
     automake \
@@ -19,8 +29,6 @@ RUN add-apt-repository ppa:bitcoin/bitcoin && apt-get update && sudo apt-get ins
     libssl-dev \
     libevent-dev \
     bsdmainutils \
-    git \
-    libboost-all-dev \
     libminiupnpc-dev \
     libqt5gui5 \
     libqt5core5a \
@@ -34,23 +42,32 @@ RUN add-apt-repository ppa:bitcoin/bitcoin && apt-get update && sudo apt-get ins
     libcap-dev \
     libncap-dev \
     libqrencode-dev \
-    libssl-dev
+    curl
 
-RUN git clone https://github.com/vergecurrency/verge /coin/git
+# Clone Verge source
+RUN git clone https://github.com/vergecurrency/verge.git /coin/verge
 
-WORKDIR /coin/git/src
+# Build db4 from source
+WORKDIR /coin/verge/contrib
+RUN ./install_db4.sh ..
 
-RUN ./autogen.sh && ./configure && make
+# Configure and build Verge
+WORKDIR /coin/verge
+RUN ./autogen.sh && \
+    ./configure LDFLAGS="-L/coin/db4/lib/" CPPFLAGS="-I/coin/db4/include/" --with-gui=no && \
+    make -j$(nproc)
 
-RUN mv VERGEd /coin/VERGEd && rm -rf /coin/git
+# Move final binary to standard location
+RUN mv /coin/verge/src/verged /coin/vergedaemon && \
+    rm -rf /coin/verge
 
+# Define runtime environment
 WORKDIR /coin
 VOLUME ["/coin/home"]
-
 ENV HOME /coin/home
 
+# Default command
 ENTRYPOINT ["/coin/vergedaemon"]
-#CMD ["/coin/dogedaemon"]
 
-# P2P, RPC
+# Expose Verge P2P and RPC ports
 EXPOSE 21102 20102
