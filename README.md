@@ -3,10 +3,10 @@
 # Docker-Verge-Daemon (original by bitspill)
 https://github.com/vergecurrency/Docker-Verge-Daemon
 
-#Build image
+Build image:
 ```docker build -t verge-daemon .```
 
-#Run image
+Run image:
 ```docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon```
 
 Place VERGE.conf in ~/.VERGE/VERGE.conf on the HOST system.
