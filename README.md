@@ -1,6 +1,6 @@
 ![docker](https://raw.githubusercontent.com/vergecurrency/Docker-Verge-Daemon/master/docker.png)
 
-# Docker-Verge-Daemon (original by bitspill)
+# Docker-Verge-Daemon
 https://github.com/vergecurrency/Docker-Verge-Daemon
 
 Build image:
