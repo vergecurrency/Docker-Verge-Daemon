@@ -20,5 +20,5 @@ Place VERGE.conf in /coins/verge/.VERGE/VERGE.conf on the HOST system.
 Live Chat
 ---------
 
-come check out our live chat:
-[![Visit our IRC Chat!](https://kiwiirc.com/buttons/chat.freenode.net/verge.png)](https://kiwiirc.com/client/chat.freenode.net/?nick=xvg|?&theme=cli#verge)
+<b>Discord Server:</b> <a href="https://discord.gg/vergecurrency" target="_blank"> https://discord.gg/vergecurrency </a><img alt="Discord" src="https://img.shields.io/discord/325024453065179137?logo=v&logoColor=teal"><br>
+
