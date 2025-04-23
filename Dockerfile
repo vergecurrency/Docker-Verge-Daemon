@@ -48,10 +48,14 @@ RUN git clone https://github.com/vergecurrency/verge.git /coin/verge
 WORKDIR /coin/verge/contrib
 RUN ./install_db4.sh ..
 
+# list files
+WORKDIR /coin/verge/contrib
+RUN ls
+
 # Configure and build Verge
 WORKDIR /coin/verge
 RUN ./autogen.sh && \
-    ./configure LDFLAGS="-L/coin/db4/lib/" CPPFLAGS="-I/coin/db4/include/" --with-gui=no && \
+    ./configure LDFLAGS="-L/coin/verge/db4/lib/" CPPFLAGS="-I/coin/verge/db4/include/" --with-gui=no && \
     make -j$(nproc)
 
 # Move final binary to standard location
