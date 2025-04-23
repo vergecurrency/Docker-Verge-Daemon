@@ -14,14 +14,11 @@ WORKDIR /coin
 # Install dependencies
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-    add-apt-repository ppa:bitcoin/bitcoin && \
     apt-get update && \
     apt-get install -y \
     build-essential \
     git \
     libboost-all-dev \
-    libdb4.8-dev \
-    libdb4.8++-dev \
     libtool \
     autotools-dev \
     automake \
