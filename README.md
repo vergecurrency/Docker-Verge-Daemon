@@ -1,5 +1,9 @@
 ![docker](https://raw.githubusercontent.com/vergecurrency/Docker-Verge-Daemon/master/docker.png)
-
+<p align="left">
+  <a href="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/testing-dockerfile.yml">
+  <img src="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/testing-dockerfile.yml/badge.svg">
+  </a>
+</p>
 # Docker-Verge-Daemon
 https://github.com/vergecurrency/Docker-Verge-Daemon
 
