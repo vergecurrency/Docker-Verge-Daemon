@@ -55,7 +55,7 @@ RUN ls
 # Configure and build Verge
 WORKDIR /coin/verge
 RUN ./autogen.sh && \
-    ./configure LDFLAGS="-L/coin/verge/db4/lib/" CPPFLAGS="-I/coin/verge/db4/include/" --with-gui=no && \
+    ./configure LDFLAGS="-L/coin/verge/db4/lib/" CPPFLAGS="-I/coin/verge/db4/include/" --disable-bench --disable-tests --disable-dependency-tracking --disable-werror --with-gui=no && \
     make -j$(nproc)
 
 # Move final binary to standard location
