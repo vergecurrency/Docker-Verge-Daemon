@@ -1,20 +1,15 @@
 ![raspi](https://raw.githubusercontent.com/vergecurrency/Docker-Verge-Daemon/master/docker.png)
 
-# Docker-Verge-Daemon (by bitspill)
-https://github.com/vergecurrency/verge (official coin source code repo)
-
-https://github.com/bitspill/Docker-Verge-Daemon
-
-
+# Docker-Verge-Daemon (original by bitspill)
+https://github.com/vergecurrency/Docker-Verge-Daemon
 
 #Build image  
-    docker build -t bitspill/verged github.com/bitspill/Docker-Verge-Daemon
+    docker build -t verge-daemon .
 
 #Run image 
-    docker run -d --name vergedaemon -v /coins/verge:/coin/home -p 20102:20102 -p 21102:21102 bitspill/verged
+    docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon
 
-
-Place VERGE.conf in /coins/verge/.VERGE/VERGE.conf on the HOST system.
+Place VERGE.conf in ~/.VERGE/VERGE.conf on the HOST system.
 
 
 Live Chat
