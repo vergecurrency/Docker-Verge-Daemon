@@ -4,8 +4,6 @@
 
 FROM ubuntu:22.04
 
-LABEL maintainer="Jeremiah Buddenhagen <bitspill@bitspill.net>"
-
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Set base working directory
