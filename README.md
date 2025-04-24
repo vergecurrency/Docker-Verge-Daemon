@@ -35,7 +35,15 @@ Step 3: Add Your Configuration File
 -----
 Create a Verge config file (VERGE.conf) with your custom settings (e.g., username, password, rpcport, etc.) and place it in this folder on your host machine:
 
-Place VERGE.conf in ~/.VERGE/VERGE.conf on the HOST system.
+Place VERGE.conf in ~/.VERGE/VERGE.conf on the HOST system.<br>
+Here's a sample VERGE.conf:<br>
+```
+rpcuser=username1234
+rpcpassword=rpcpassword1234
+daemon=1
+txindex=1
+```
+<br>
 
 <br><br>
 Live Chat & Support
