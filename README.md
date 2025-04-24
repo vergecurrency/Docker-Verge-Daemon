@@ -4,7 +4,8 @@
   <img src="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/dockerfile-build-test.yml/badge.svg">
   </a>
 </p>
-# Docker-Verge-Daemon
+Docker-Verge-Daemon
+------
 https://github.com/vergecurrency/Docker-Verge-Daemon
 
 This guide helps you build and run the Verge Daemon using Docker. No need to install dependencies manually — Docker takes care of everything in a clean environment.
@@ -12,14 +13,14 @@ This guide helps you build and run the Verge Daemon using Docker. No need to ins
 Step 1: Build the Docker Image
 -----
 First, clone the repository and build the Docker image:
-
-```git clone https://github.com/vergecurrency/Docker-Verge-Daemon.git```
-```cd Docker-Verge-Daemon```
-```docker build -t verge-daemon .```
+<br>
+```git clone https://github.com/vergecurrency/Docker-Verge-Daemon.git```<br>
+```cd Docker-Verge-Daemon```<br>
+```docker build -t verge-daemon .```<br>
 
 Step 2: Run the Verge Daemon Container
 -----
-Now you can run the container in the background with the following command:
+Now you can run the container in the background with the following command:<br>
 ```docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon```
 
 * -d: runs the container in the background (detached mode)
