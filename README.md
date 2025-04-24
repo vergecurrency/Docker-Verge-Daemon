@@ -4,9 +4,9 @@
   <img src="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/dockerfile-build-test.yml/badge.svg">
   </a>
 </p>
+
 Docker-Verge-Daemon
 ------
-https://github.com/vergecurrency/Docker-Verge-Daemon
 
 This guide helps you build and run the Verge Daemon using Docker. No need to install dependencies manually — Docker takes care of everything in a clean environment.
 
