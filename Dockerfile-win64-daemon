@@ -14,6 +14,7 @@ RUN apt-get update && \
     mingw-w64 \
     g++-mingw-w64-x86-64 \
     autotools-dev \
+	autoconf \
     automake \
     libtool \
     pkg-config \
@@ -32,7 +33,7 @@ WORKDIR /coin/verge/contrib
 
 # Build db4 from source
 WORKDIR /coin/verge/contrib
-RUN ./install_db4.sh ..
+RUN sed -i '/^# Build db4 from source/a\    cp /usr/share/automake-1.16/config.guess dist/config.guess\n    cp /usr/share/automake-1.16/config.sub dist/config.sub' install_db4.sh
 
 # Set environment for MinGW cross-compilation
 ENV HOST=x86_64-w64-mingw32

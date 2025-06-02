@@ -20,6 +20,7 @@ RUN apt-get update && \
     libtool \
     autotools-dev \
     automake \
+	autoconf \
     pkg-config \
     libssl-dev \
     libevent-dev \
