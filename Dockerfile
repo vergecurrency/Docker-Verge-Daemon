@@ -56,6 +56,8 @@ RUN ./autogen.sh && \
     ./configure LDFLAGS="-L/coin/verge/db4/lib/" CPPFLAGS="-I/coin/verge/db4/include/" --disable-bench --disable-tests --disable-dependency-tracking --disable-werror --with-gui=no && \
     make -j$(nproc)
 
+RUN mkdir /coin/vergedaemon
+
 # Move final binary to standard location
 RUN mv /coin/verge/src/verged /coin/vergedaemon && \
     rm -rf /coin/verge
