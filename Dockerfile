@@ -37,8 +37,7 @@ RUN apt-get update && \
     libcap-dev \
     libncap-dev \
     libqrencode-dev \
-    curl \
-	wget
+    curl
 
 # Clone Verge source
 RUN git clone https://github.com/vergecurrency/verge.git /coin/verge
