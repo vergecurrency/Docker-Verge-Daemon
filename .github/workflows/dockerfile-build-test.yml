@@ -19,7 +19,7 @@ jobs:
             binutils-gold python3
 
       - name: Build Docker image
-        run: docker build -t verge-daemon .
+        run: docker build -t --progress=plain --no-cache verge-daemon .
 
       - name: Run Verge daemon container
         run: |

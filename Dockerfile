@@ -38,6 +38,8 @@ RUN apt-get update && \
     libncap-dev \
     libqrencode-dev \
     curl \
+	patch \
+	ca-certificates \
 	wget
 
 # Clone Verge source
