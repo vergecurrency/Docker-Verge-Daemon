@@ -38,8 +38,8 @@ Create a Verge config file (VERGE.conf) with your custom settings (e.g., usernam
 Place VERGE.conf in ~/.VERGE/VERGE.conf on the HOST system.<br>
 Here's a sample VERGE.conf:<br>
 ```
-rpcuser=username1234
-rpcpassword=rpcpassword1234
+rpcuser=username123
+rpcpassword=rpcpassword123
 daemon=1
 txindex=1
 ```
