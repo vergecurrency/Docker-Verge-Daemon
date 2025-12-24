@@ -23,16 +23,14 @@ jobs:
         
       - name: Inspect image filesystem
         run: |
-          id=$(docker create verge-daemon)
-          echo "=== Listing / ==="
-          docker exec $id ls -la /
-          echo "=== Listing /coin ==="
-          docker exec $id ls -la /coin || true
-          echo "=== Listing /coin/dist ==="
-          docker exec $id ls -la /coin/dist || true
-          echo "=== Find verged binary ==="
-          docker exec $id find / -type f -name "verged*" 2>/dev/null
-          docker rm $id
+            echo "=== Listing / ==="
+            docker run --rm --entrypoint sh verge-daemon -c "ls -la /"
+            echo "=== Listing /coin ==="
+            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin || true"
+            echo "=== Listing /coin/dist ==="
+            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
+            echo "=== Find verged binaries ==="
+            docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
 
       - name: Run Verge daemon container
         run: |
