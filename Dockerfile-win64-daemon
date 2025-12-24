@@ -34,23 +34,6 @@ WORKDIR /coin/verge/contrib
 WORKDIR /coin/verge/contrib
 RUN sed -i '/^# Build db4 from source/a\    cp /usr/share/automake-1.16/config.guess dist/config.guess\n    cp /usr/share/automake-1.16/config.sub dist/config.sub' install_db4.sh
 
-- name: Inspect Berkeley DB 4.8 install location
-  run: |
-    id=$(docker create verge-daemon-win64)
-    echo "=== Searching for db4 directories ==="
-    docker exec $id find /coin -maxdepth 4 -type d -name "db4*" || true
-
-    echo "=== Searching for libdb*.a / libdb*.dll ==="
-    docker exec $id find /coin -type f \( -name "libdb*.a" -o -name "libdb*.dll" \) || true
-
-    echo "=== Searching for db.h ==="
-    docker exec $id find /coin -type f -name "db.h" || true
-
-    echo "=== Full tree of /coin/verge/db4 (if present) ==="
-    docker exec $id ls -R /coin/verge/db4 || true
-
-    docker rm $id
-
 # Set environment for MinGW cross-compilation
 ENV HOST=x86_64-w64-mingw32
 ENV CC=$HOST-gcc
