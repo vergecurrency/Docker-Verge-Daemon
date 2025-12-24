@@ -36,7 +36,7 @@ RUN sed -i '/^# Build db4 from source/a\    cp /usr/share/automake-1.16/config.g
 
 # DEBUG: show where DB4 headers were installed
 RUN echo "==== DB4 HEADER FILE LOCATIONS ====" && \
-    find /coin -type f -name "db.h" 2>/dev/null && \
+    find /coin -type f -name "db_cxx.h" 2>/dev/null && \
     echo "==== DB4 INCLUDE DIRECTORIES ====" && \
     find /coin -type d -name "*db4*" 2>/dev/null && \
     echo "==== DB4 LIBRARIES ====" && \
