@@ -20,6 +20,19 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t verge-daemon .
+        
+      - name: Inspect image filesystem
+        run: |
+          id=$(docker create verge-daemon)
+          echo "=== Listing / ==="
+          docker exec $id ls -la /
+          echo "=== Listing /coin ==="
+          docker exec $id ls -la /coin || true
+          echo "=== Listing /coin/dist ==="
+          docker exec $id ls -la /coin/dist || true
+          echo "=== Find verged binary ==="
+          docker exec $id find / -type f -name "verged*" 2>/dev/null
+          docker rm $id
 
       - name: Run Verge daemon container
         run: |
@@ -48,6 +61,19 @@ jobs:
 
       - name: Build Docker image
         run: docker build -t verge-daemon .
+        
+      - name: Inspect image filesystem
+        run: |
+          id=$(docker create verge-daemon)
+          echo "=== Listing / ==="
+          docker exec $id ls -la /
+          echo "=== Listing /coin ==="
+          docker exec $id ls -la /coin || true
+          echo "=== Listing /coin/dist ==="
+          docker exec $id ls -la /coin/dist || true
+          echo "=== Find verged binary ==="
+          docker exec $id find / -type f -name "verged*" 2>/dev/null
+          docker rm $id
 
       - name: Run Verge daemon container
         run: |
