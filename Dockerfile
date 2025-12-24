@@ -70,8 +70,5 @@ WORKDIR /coin
 VOLUME ["/coin/home"]
 ENV HOME /coin/home
 
-# Default command
-ENTRYPOINT ["/coin/vergedaemon"]
-
 # Expose Verge P2P and RPC ports
 EXPOSE 21102 20102
