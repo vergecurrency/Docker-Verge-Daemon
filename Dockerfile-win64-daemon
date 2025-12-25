@@ -33,7 +33,7 @@ WORKDIR /coin/verge/contrib
 # Build db4 from source
 WORKDIR /coin/verge/contrib
 
-# Build Berkeley DB 4.8 for MinGW (Windows)
+# Build Berkeley DB 4.8 for Windows (MinGW)
 WORKDIR /coin
 
 RUN wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && \
@@ -45,6 +45,7 @@ RUN wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && \
       --enable-mingw \
       --disable-shared \
       --enable-cxx \
+      --disable-replication \
       --prefix=/coin/db4 && \
     make -j$(nproc) && \
     make install
