@@ -58,7 +58,7 @@ ENV AR=$HOST-ar
 ENV RANLIB=$HOST-ranlib
 ENV STRIP=$HOST-strip
 
-RUN sudo update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
+RUN update-alternatives --set x86_64-w64-mingw32-g++ /usr/bin/x86_64-w64-mingw32-g++-posix
 
 # Compile Verge Dependencies
 WORKDIR /coin/verge/depends
