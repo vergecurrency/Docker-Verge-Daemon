@@ -19,23 +19,27 @@ jobs:
             binutils-gold python3
 
       - name: Build Docker image
-        run: docker build -t verge-daemon .
-        
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:latest \
+            .
+
       - name: Inspect image filesystem
         run: |
-            echo "=== Listing / ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /"
-            echo "=== Listing /coin ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin || true"
-            echo "=== Listing /coin/dist ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
-            echo "=== Find verged binaries ==="
-            docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
-        
+          echo "=== Listing / ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 -c "ls -la /"
+          echo "=== Listing /coin ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 -c "ls -la /coin || true"
+          echo "=== Listing /coin/dist ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 -c "ls -la /coin/dist || true"
+          echo "=== Find verged binaries ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 -c "find / -type f -name 'verged*' 2>/dev/null"
+
       - name: Export Docker image as artifact
         run: |
-            docker save verge-daemon -o verge-daemon-image-ubuntu24.tar
-            ls -lh verge-daemon-image-ubuntu24.tar
+          docker save ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 -o verge-daemon-image-ubuntu24.tar
+          ls -lh verge-daemon-image-ubuntu24.tar
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
@@ -43,16 +47,26 @@ jobs:
           name: verge-daemon-docker-image-ubuntu24
           path: verge-daemon-image-ubuntu24.tar
           retention-days: 7
-      
+
       - name: Write image metadata
-        run: |
-          docker inspect verge-daemon > image-inspect.json
+        run: docker inspect ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24 > image-inspect.json
 
       - name: Upload metadata
         uses: actions/upload-artifact@v4
         with:
           name: verge-daemon-metadata-ubuntu24
           path: image-inspect.json
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image (ubuntu24 + latest)
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu24
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:latest
 
   ubuntu22:
     runs-on: ubuntu-22.04
@@ -71,23 +85,26 @@ jobs:
             binutils-gold python3
 
       - name: Build Docker image
-        run: docker build -t verge-daemon .
-        
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 \
+            .
+
       - name: Inspect image filesystem
         run: |
-            echo "=== Listing / ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /"
-            echo "=== Listing /coin ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin || true"
-            echo "=== Listing /coin/dist ==="
-            docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
-            echo "=== Find verged binaries ==="
-            docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
-        
+          echo "=== Listing / ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 -c "ls -la /"
+          echo "=== Listing /coin ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 -c "ls -la /coin || true"
+          echo "=== Listing /coin/dist ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 -c "ls -la /coin/dist || true"
+          echo "=== Find verged binaries ==="
+          docker run --rm --entrypoint sh ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 -c "find / -type f -name 'verged*' 2>/dev/null"
+
       - name: Export Docker image as artifact
         run: |
-            docker save verge-daemon -o verge-daemon-image-ubuntu22.tar
-            ls -lh verge-daemon-image-ubuntu22.tar
+          docker save ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 -o verge-daemon-image-ubuntu22.tar
+          ls -lh verge-daemon-image-ubuntu22.tar
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
@@ -95,13 +112,21 @@ jobs:
           name: verge-daemon-docker-image-ubuntu22
           path: verge-daemon-image-ubuntu22.tar
           retention-days: 7
-      
+
       - name: Write image metadata
-        run: |
-          docker inspect verge-daemon > image-inspect.json
+        run: docker inspect ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22 > image-inspect.json
 
       - name: Upload metadata
         uses: actions/upload-artifact@v4
         with:
           name: verge-daemon-metadata-ubuntu22
           path: image-inspect.json
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Push Docker image (ubuntu22)
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/verge-daemon:ubuntu22
