@@ -92,7 +92,6 @@ jobs:
             docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
             echo "=== Find verged binaries ==="
             docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
-            docker rm $id
 
       - name: Run Verge daemon container
         run: |
