@@ -33,7 +33,20 @@ WORKDIR /coin/verge/contrib
 # Build db4 from source
 WORKDIR /coin/verge/contrib
 
-RUN ./install_db4.sh ..
+# Build Berkeley DB 4.8 for MinGW (Windows)
+WORKDIR /coin
+
+RUN wget http://download.oracle.com/berkeley-db/db-4.8.30.NC.tar.gz && \
+    tar -xzf db-4.8.30.NC.tar.gz && \
+    cd db-4.8.30.NC/build_unix && \
+    ../dist/configure \
+      --host=x86_64-w64-mingw32 \
+      --enable-mingw \
+      --disable-shared \
+      --enable-cxx \
+      --prefix=/coin/db4 && \
+    make -j$(nproc) && \
+    make install
 
 # Set environment for MinGW cross-compilation
 ENV HOST=x86_64-w64-mingw32
@@ -47,14 +60,15 @@ ENV STRIP=$HOST-strip
 WORKDIR /coin/verge
 
 RUN ./autogen.sh && \
-    ./configure --host=${HOST} \
-    --with-gui=no \
-    --disable-tests \
-    --disable-bench \
-    LDFLAGS="-L/coin/verge/db4/lib" \
-    CPPFLAGS="-I/coin/verge/db4/include" \
-    CXX=${CXX} CC=${CC} && \
-    make -j$(nproc)
+    ./configure \
+      --host=${HOST} \
+      --with-gui=no \
+      --disable-tests \
+      --disable-bench \
+      LDFLAGS="-L/coin/db4/lib" \
+      CPPFLAGS="-I/coin/db4/include" \
+      CXX=${CXX} CC=${CC} && \
+      make -j$(nproc)
 
 # Rename and move final binary
 RUN mkdir -p /coin/dist && \
