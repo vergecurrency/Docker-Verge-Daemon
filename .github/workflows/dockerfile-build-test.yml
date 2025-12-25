@@ -51,7 +51,7 @@ jobs:
       - name: Upload metadata
         uses: actions/upload-artifact@v4
         with:
-          name: verge-daemon-metadata
+          name: verge-daemon-metadata-ubuntu24
           path: image-inspect.json
 
   ubuntu22:
@@ -103,5 +103,5 @@ jobs:
       - name: Upload metadata
         uses: actions/upload-artifact@v4
         with:
-          name: verge-daemon-metadata
+          name: verge-daemon-metadata-ubuntu22
           path: image-inspect.json
