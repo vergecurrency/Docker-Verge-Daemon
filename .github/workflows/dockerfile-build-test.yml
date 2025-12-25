@@ -40,6 +40,28 @@ jobs:
 
       - name: Verify Verge daemon is running
         run: docker ps -a | grep vergedaemon
+        
+      - name: Export Docker image as artifact
+        run: |
+            docker save verge-daemon -o verge-daemon-image.tar
+            ls -lh verge-daemon-image.tar
+
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verge-daemon-docker-image
+          path: verge-daemon-image.tar
+          retention-days: 7
+      
+      - name: Write image metadata
+        run: |
+          docker inspect verge-daemon > image-inspect.json
+
+      - name: Upload metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: verge-daemon-metadata
+          path: image-inspect.json
 
   ubuntu22:
     runs-on: ubuntu-22.04
@@ -80,26 +102,3 @@ jobs:
 
       - name: Verify Verge daemon is running
         run: docker ps -a | grep vergedaemon
-
-  win64-crossbuild:
-    runs-on: ubuntu-22.04
-    name: Cross-compile Verge for Windows 64-bit
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build Windows 64-bit Docker image
-        run: docker build -t verge-daemon-win64 -f Dockerfile-win64-daemon .
-
-      - name: Extract Verge Windows binary
-        run: |
-          id=$(docker create verge-daemon-win64)
-          docker cp $id:/coin/dist/verged.exe ./verged.exe
-          docker rm $id
-
-      - name: Upload Verge Windows binary as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: verge-daemon-win64
-          path: ./verged.exe

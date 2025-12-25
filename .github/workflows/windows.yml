@@ -1,0 +1,26 @@
+on:
+  push:
+
+jobs:
+  win64-crossbuild:
+    runs-on: ubuntu-22.04
+    name: Cross-compile Verge for Windows 64-bit
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Windows 64-bit Docker image
+        run: docker build -t verge-daemon-win64 -f Dockerfile-win64-daemon .
+
+      - name: Extract Verge Windows binary
+        run: |
+          id=$(docker create verge-daemon-win64)
+          docker cp $id:/coin/dist/verged.exe ./verged.exe
+          docker rm $id
+
+      - name: Upload Verge Windows binary as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verge-daemon-win64
+          path: ./verged.exe
