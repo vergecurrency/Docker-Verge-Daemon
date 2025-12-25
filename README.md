@@ -4,11 +4,6 @@
   <img src="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/dockerfile-build-test.yml/badge.svg">
   </a>
 </p>
-<p align="left">
-  <a href="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/windows.yml">
-  <img src="https://github.com/vergecurrency/Docker-Verge-Daemon/actions/workflows/windows.yml/badge.svg">
-  </a>
-</p>
 
 Docker-Verge-Daemon
 ------
