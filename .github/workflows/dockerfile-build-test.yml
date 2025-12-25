@@ -31,26 +31,17 @@ jobs:
             docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
             echo "=== Find verged binaries ==="
             docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
-
-      - name: Run Verge daemon container
-        run: |
-          docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon
-          sleep 10  # Wait for daemon to start
-          docker logs vergedaemon
-
-      - name: Verify Verge daemon is running
-        run: docker ps -a | grep vergedaemon
         
       - name: Export Docker image as artifact
         run: |
-            docker save verge-daemon -o verge-daemon-image.tar
-            ls -lh verge-daemon-image.tar
+            docker save verge-daemon -o verge-daemon-image-ubuntu24.tar
+            ls -lh verge-daemon-image-ubuntu24.tar
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
         with:
-          name: verge-daemon-docker-image
-          path: verge-daemon-image.tar
+          name: verge-daemon-docker-image-ubuntu24
+          path: verge-daemon-image-ubuntu24.tar
           retention-days: 7
       
       - name: Write image metadata
@@ -92,12 +83,25 @@ jobs:
             docker run --rm --entrypoint sh verge-daemon -c "ls -la /coin/dist || true"
             echo "=== Find verged binaries ==="
             docker run --rm --entrypoint sh verge-daemon -c "find / -type f -name 'verged*' 2>/dev/null"
-
-      - name: Run Verge daemon container
+        
+      - name: Export Docker image as artifact
         run: |
-          docker run -d --name vergedaemon -p 20102:20102 -p 21102:21102 verge-daemon
-          sleep 10  # Wait for daemon to start
-          docker logs vergedaemon
+            docker save verge-daemon -o verge-daemon-image-ubuntu22.tar
+            ls -lh verge-daemon-image-ubuntu22.tar
 
-      - name: Verify Verge daemon is running
-        run: docker ps -a | grep vergedaemon
+      - name: Upload Docker image artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verge-daemon-docker-image-ubuntu22
+          path: verge-daemon-image-ubuntu22.tar
+          retention-days: 7
+      
+      - name: Write image metadata
+        run: |
+          docker inspect verge-daemon > image-inspect.json
+
+      - name: Upload metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: verge-daemon-metadata
+          path: image-inspect.json
