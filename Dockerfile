@@ -60,7 +60,7 @@ RUN ./autogen.sh && \
     make -j$(nproc)
 	
 
-RUN strip src/verged
+RUN strip /coin/verge/src/verged
 
 RUN mkdir /coin/vergedaemon
 
