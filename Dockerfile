@@ -45,9 +45,12 @@ RUN apt-get update && \
 # Clone Verge source
 RUN git clone https://github.com/vergecurrency/verge.git /coin/verge
 
-# Build db4 from source
+# Build Berkeley DB 4.8 (ignore known patch warnings)
 WORKDIR /coin/verge/contrib
 RUN ./install_db4.sh .. || true
+
+# Verify DB4 build artifacts exist
+RUN test -f /coin/verge/db4/lib/libdb_cxx-4.8.a
 
 # list files
 WORKDIR /coin/verge/contrib
