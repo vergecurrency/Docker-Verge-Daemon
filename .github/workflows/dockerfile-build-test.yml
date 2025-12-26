@@ -18,7 +18,7 @@ jobs:
             pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib \
             binutils-gold python3
 
-       name: Build Docker image
+      - name: Build Docker image
         run: |
           docker build \
             -t vergecurrency/verge:8.0.3 \
