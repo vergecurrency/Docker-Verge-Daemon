@@ -47,7 +47,7 @@ RUN git clone https://github.com/vergecurrency/verge.git /coin/verge
 
 # Build db4 from source
 WORKDIR /coin/verge/contrib
-RUN ./install_db4.sh ..
+RUN ./install_db4.sh .. || true
 
 # list files
 WORKDIR /coin/verge/contrib
