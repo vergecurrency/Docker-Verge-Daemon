@@ -21,40 +21,39 @@ jobs:
       - name: Build Docker image
         run: |
           docker build \
-            -t vergecurrency/verge:ubuntu24 \
-            -t vergecurrency/verge:latest \
+            -t vergecurrency/verge:8.0.3 \
             .
 
       - name: Inspect image filesystem
         run: |
           echo "=== Listing / ==="
-          docker run --rm --entrypoint sh vergecurrency/verge:ubuntu24 -c "ls -la /"
+          docker run --rm --entrypoint sh vergecurrency/verge:8.0.3 -c "ls -la /"
           echo "=== Listing /coin ==="
-          docker run --rm --entrypoint sh vergecurrency/verge:ubuntu24 -c "ls -la /coin || true"
+          docker run --rm --entrypoint sh vergecurrency/verge:8.0.3 -c "ls -la /coin || true"
           echo "=== Listing /coin/dist ==="
-          docker run --rm --entrypoint sh vergecurrency/verge:ubuntu24 -c "ls -la /coin/dist || true"
+          docker run --rm --entrypoint sh vergecurrency/verge:8.0.3 -c "ls -la /coin/dist || true"
           echo "=== Find verged binaries ==="
-          docker run --rm --entrypoint sh vergecurrency/verge:ubuntu24 -c "find / -type f -name 'verged*' 2>/dev/null"
+          docker run --rm --entrypoint sh vergecurrency/verge:8.0.3 -c "find / -type f -name 'verged*' 2>/dev/null"
 
       - name: Export Docker image as artifact
         run: |
-          docker save vergecurrency/verge:ubuntu24 -o verge-daemon-image-ubuntu24.tar
-          ls -lh verge-daemon-image-ubuntu24.tar
+          docker save vergecurrency/verge:8.0.3 -o verge-daemon-image-8.0.3.tar
+          ls -lh verge-daemon-image-8.0.3.tar
 
       - name: Upload Docker image artifact
         uses: actions/upload-artifact@v4
         with:
-          name: verge-daemon-docker-image-ubuntu24
-          path: verge-daemon-image-ubuntu24.tar
+          name: verge-daemon-docker-image-8.0.3
+          path: verge-daemon-image-8.0.3.tar
           retention-days: 7
 
       - name: Write image metadata
-        run: docker inspect vergecurrency/verge:ubuntu24 > image-inspect.json
+        run: docker inspect vergecurrency/verge:8.0.3 > image-inspect.json
 
       - name: Upload metadata
         uses: actions/upload-artifact@v4
         with:
-          name: verge-daemon-metadata-ubuntu24
+          name: verge-daemon-metadata-8.0.3
           path: image-inspect.json
 
       - name: Log in to Docker Hub
@@ -63,7 +62,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push Docker image (ubuntu24 + latest)
+      - name: Push Docker image (8.0.3)
         run: |
-          docker push vergecurrency/verge:ubuntu24
-          docker push vergecurrency/verge:latest
+          docker push vergecurrency/verge:8.0.3
