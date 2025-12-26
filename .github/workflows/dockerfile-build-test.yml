@@ -18,10 +18,11 @@ jobs:
             pkg-config bsdmainutils libattr1-dev make automake bison byacc cmake curl g++-multilib \
             binutils-gold python3
 
-      - name: Build Docker image
+       name: Build Docker image
         run: |
           docker build \
             -t vergecurrency/verge:8.0.3 \
+            -t vergecurrency/verge:latest \
             .
 
       - name: Inspect image filesystem
@@ -62,6 +63,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Push Docker image (8.0.3)
+      - name: Push Docker image (current version and latest)
         run: |
           docker push vergecurrency/verge:8.0.3
+          docker push vergecurrency/verge:latest
